@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505; /* Deep Black */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Container for the Rose */
+        .rose-container {
+            position: relative;
+            width: 300px;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 50, 0.6));
+            z-index: 2;
+        }
+
+        /* SVG Styling */
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* The Paths (Lines of the Rose) */
+        path {
+            fill: transparent; /* Pehle transparent rahega */
+            stroke: #ff0040;   /* Neon Red Border */
+            stroke-width: 1.5;
+            stroke-dasharray: 3500; /* Total length of lines */
+            stroke-dashoffset: 3500; /* Hidden initially */
+            animation: drawLines 4s ease-in-out forwards, fillColor 2s ease-in-out 3.5s forwards;
+        }
+
+        /* Animation: Lines Drawing */
+        @keyframes drawLines {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Animation: Filling Color */
+        @keyframes fillColor {
+            to {
+                fill: rgba(220, 20, 60, 0.9); /* Deep Red Fill */
+                stroke: #ff3366;
+                filter: drop-shadow(0 0 10px #ff0040);
+            }
+        }
+
+        /* Stem (Tana) specific style */
+        .stem-path {
+            stroke: #00ff80;
+            animation: drawLines 4s ease-in-out forwards, fillStem 2s ease-in-out 3.5s forwards;
+        }
+
+        @keyframes fillStem {
+            to {
+                fill: rgba(34, 139, 34, 0.8);
+                stroke: #00ff80;
+            }
+        }
+
+        /* Text Styling */
+        .message {
+            margin-top: -50px;
+            text-align: center;
+            z-index: 3;
+            opacity: 0;
+            animation: textFadeIn 2s ease-in-out 5s forwards; /* 5 sec baad aayega */
+        }
+
+        .title {
+            color: #fff;
+            font-size: 3.5rem;
+            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #ffd700; /* Golden Color */
+            font-size: 1.8rem;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #ffd700;
+        }
+
+        @keyframes textFadeIn {
+            to { opacity: 1; transform: translateY(10px); }
+        }
+
+        /* Falling Petals Background */
+        .petal {
+            position: absolute;
+            background-color: #ff0040;
+            width: 10px;
+            height: 10px;
+            border-radius: 50% 0 50% 0;
+            top: -10%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="rose-container">
+        <svg viewBox="0 0 512 512">
+            <path class="stem-path" d="M256,480c-10-50,10-100,5-150 c-5-40-20-80-20-120"/>
+            <path class="stem-path" d="M250,350 c-40-10-80,10-100-20 c20,10,60,0,100,20"/>
+            <path class="stem-path" d="M260,300 c40-10,80,10,100-20 c-20,10-60,0-100,20"/>
+
+            <path d="M240,210 c-30-40-80-20-80,30 c0,50,50,70,80,40"/>
+            <path d="M272,210 c30-40,80-20,80,30 c0,50-50,70-80,40"/>
+            <path d="M220,180 c-20-50,40-100,90-50 c20,20-10,60-40,70"/>
+            <path d="M256,120 c-60-40-120,40-80,100 c20,30,80,30,100-10"/>
+            <path d="M256,120 c60-40,120,40,80,100 c-20,30-80,30-100-10"/>
+            
+            <path d="M256,160 c-20-20-20-60,0-80 c20,20,20,60,0,80"/>
+        </svg>
+    </div>
+
+    <div class="message">
+        <div class="title">Happy Rose Day!</div>
+        <div class="subtitle">Sachin  sharma ki taraf se apke liye 🌹</div>
+    </div>
+
+    <script>
+        // JavaScript for Falling Petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            // Random Position & Size
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = Math.random() * 15 + 10 + 'px';
+            
+            // Random Color Shade
+            const colors = ['#ff0040', '#ff4d79', '#e60039'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(petal);
+
+            // Remove after animation
+            setTimeout(() => {
+                petal.remove();
+            }, 5000);
+        }
+
+        // Create a petal every 200ms
+        setInterval(createPetal, 200);
+    </script>
+
+</body>
+</html>
